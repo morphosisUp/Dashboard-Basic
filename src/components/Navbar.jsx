@@ -18,10 +18,20 @@ const Navbar = () => {
 
     fetchData();
   }, []);
+
+  function changeThemeSystem() {
+    if (!document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
+    }
+  }
   return (
-    <header className="navbar shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full flex  items-center py-5 justify-between px-5">
+    <header className="navbar dark:border-b dark:border-zinc-800 dark:bg-zinc-950 shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full flex  items-center py-5 justify-between px-5">
       <div className="logo_container flex items-center space-x-5">
-        <button className="text-zinc-500 transition-all hover:text-indigo-700">
+        <button className="text-zinc-500 dark:text-indigo-700 transition-all hover:text-indigo-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,7 +52,7 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <button className="text-zinc-500 transition-all hover:text-indigo-700">
+        <button className="text-zinc-500 dark:text-white dark:hover:text-zinc-500 transition-all hover:text-indigo-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -72,7 +82,11 @@ const Navbar = () => {
 
       <div>
         <div className="flex items-center space-x-3">
-        <button className="text-zinc-500 transition-all paisagem-tablet:inline hidden hover:text-indigo-700" title="Tema do Sistema">
+          <button
+            onClick={changeThemeSystem}
+            className="text-zinc-500 dark:hover:text-zinc-500 dark:text-white transition-all paisagem-tablet:inline hidden hover:text-indigo-700"
+            title="Tema do Sistema"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -88,7 +102,10 @@ const Navbar = () => {
               />
             </svg>
           </button>
-          <button className="text-zinc-500 transition-all hover:text-indigo-700" title="Menu">
+          <button
+            className="text-zinc-500 dark:hover:text-zinc-500 dark:text-white transition-all hover:text-indigo-700"
+            title="Menu"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -104,7 +121,6 @@ const Navbar = () => {
               />
             </svg>
           </button>
-         
         </div>
       </div>
     </header>

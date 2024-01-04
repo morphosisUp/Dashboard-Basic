@@ -1,5 +1,6 @@
 @import "./tailwind.css";
 :root {
+ 
   --fontInter: "Inter", sans-serif;
   --fontPoppins: "Poppins", sans-serif;
 
@@ -19,4 +20,11 @@ p{
 }
 .frame_show_more{
   backdrop-filter: blur(2px);
+}
+.max_height_none{
+  max-height: none !important;
+}
+.container_loading{
+  background-color: #fff;
+  
 }

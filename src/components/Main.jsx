@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import ContainerLoad from "./ContainerLoad";
 
 const CardUser = ({
   id,
@@ -12,21 +13,24 @@ const CardUser = ({
   function showInfoUsers(id) {
     console.log(id);
   }
+
   return (
-    <div className="p-5 rounded-lg bg-white transition-all shadow-sm">
+    <div className="p-5 cursor-pointer rounded-lg dark:rounded-t-lg bg-white hover:shadow-lg dark:hover:from-zinc-900 dark:hover:to-zinc-950 dark:bg-gradient-to-b from-zinc-800 to-zinc-950 transition-all shadow-sm dark:shadow-none">
       <header className="w-full flex space-x-5 paisagem-tablet:flex-row flex-col paisagem-tablet:justify-start justify-center  ">
         <img
           src={image_profile}
-          className="w-12 h-12 rounded-full paisagem-tablet:m-0  m-auto ring-2 ring-offset-2 ring-indigo-400"
+          className="w-12 h-12 rounded-full paisagem-tablet:m-0  m-auto ring-2 ring-offset-2 ring-indigo-400  dark:ring-zinc-700"
           alt="imagem_de_funcionario"
         />
         <div className="paisagem-tablet:text-start text-center paisagem-tablet:mt-0 mt-4">
-          <h3 className="text-zinc-900">
+          <h3 className="text-zinc-900 dark:text-white">
             {first_name} {last_name}
           </h3>
-          <p className="text-[14px] text-indigo-700">{email}</p>
+          <p className="text-[14px] text-indigo-700 dark:text-zinc-400">
+            {email}
+          </p>
 
-          <div className="mt-2 inline-flex items-center space-x-1 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full ">
+          <div className="mt-4 inline-flex items-center dark:bg-indigo-700 dark:text-white space-x-1 px-3 py-1 bg-[#f5f5f5] text-indigo-600 rounded-full ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -49,7 +53,7 @@ const CardUser = ({
       <footer className="mt-5 flex justify-center paisagem-tablet:justify-end">
         <button
           onClick={showInfoUsers(id)}
-          className="bg-indigo-700 text-white font-medium text-[14px] px-5 py-2 rounded-full"
+          className="bg-indigo-700 dark:bg-zinc-950 transition-all hover:ring-4 ring-0 ring-indigo-400 dark:ring-zinc-500 dark:ring-opacity-20 ring-opacity-35 text-white font-medium text-[14px] px-5 py-2 rounded-full"
         >
           Detalhes
         </button>
@@ -60,6 +64,7 @@ const CardUser = ({
 
 const Main = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,15 +75,25 @@ const Main = () => {
         setData(response.data.users);
       } catch (error) {
         console.error(`Ocorreu um erro ao Trazer os Dados: ${error.message}`);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  function showMoreInfo() {
+    const container_grid = document.querySelector(".container_grid");
+    const frame_show_more = document.querySelector(".frame_show_more");
+    container_grid.classList.add("max_height_none");
+    frame_show_more.classList.add("hidden");
+  }
+
   return (
     <main className="mt-[60px] p-5 relative">
-      <div className="w-full container_grid relative grid gap-4 mt-8  overflow-hidden max-w-7xl m-auto retrato-tablet:grid-cols-2 grid-cols-1 paisagem-tablet:grid-cols-3">
+      {loading && <ContainerLoad />}
+      <div className="w-full container_grid relative justify-center grid gap-4 mt-8  overflow-hidden max-w-7xl m-auto retrato-tablet:grid-cols-2 grid-cols-1 paisagem-tablet:grid-cols-3">
         {data.map((item) => (
           <CardUser
             id={item.id}
@@ -90,8 +105,11 @@ const Main = () => {
           />
         ))}
       </div>
-      <div className="absolute left-0 flex items-center frame_show_more justify-center bottom-0 h-40 bg-gradient-to-b from-transparent to-[rgba(226,220,220,0.99)] w-full">
-        <button className="show_more_data_users  cursor-pointer bg-indigo-700 text-white w-14 h-14 ring-4 ring-indigo-300 ring-opacity-30 rounded-full flex items-center justify-center">
+      <div className="absolute left-0 flex items-center frame_show_more justify-center bottom-0 h-40 bg-gradient-to-b from-transparent dark:to-[rgba(17,16,16,0.86)] to-[rgba(226,220,220,0.99)] w-full">
+        <button
+          onClick={showMoreInfo}
+          className="show_more_data_users  cursor-pointer bg-indigo-700 text-white w-12 h-12 ring-4 ring-indigo-300 ring-opacity-30 rounded-full flex items-center justify-center"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
