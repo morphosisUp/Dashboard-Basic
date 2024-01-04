@@ -1,6 +1,5 @@
 @import "./tailwind.css";
 :root {
- 
   --fontInter: "Inter", sans-serif;
   --fontPoppins: "Poppins", sans-serif;
 
@@ -12,19 +11,46 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-p{
+p {
   font-family: var(--fontInter);
 }
-.container_grid{
+.container_grid {
   max-height: 70rem;
 }
-.frame_show_more{
+.frame_show_more {
   backdrop-filter: blur(2px);
 }
-.max_height_none{
+.max_height_none {
   max-height: none !important;
 }
-.container_loading{
+.container_loading {
   background-color: #fff;
-  
+}
+.container_more_info {
+  transform: translateY(100%);
+  transition: transform 1s ease-in-out;
+}
+.container_more_info_on {
+  animation: show_container_more_info 0.3s ease-in-out forwards;
+}
+.container_more_info_off {
+  animation: hide_container_more_info 0.3s ease-in-out forwards;
+}
+
+@keyframes show_container_more_info {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide_container_more_info {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }

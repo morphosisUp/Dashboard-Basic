@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <header className="navbar dark:border-b dark:border-zinc-800 dark:bg-zinc-950 shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full flex  items-center py-5 justify-between px-5">
       <div className="logo_container flex items-center space-x-5">
-        <button className="text-zinc-500 dark:text-indigo-700 transition-all hover:text-indigo-500">
+        <button className="text-zinc-500 dark:text-indigo-500 transition-all hover:text-indigo-500" title="Definições">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -52,7 +52,7 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <button className="text-zinc-500 dark:text-white dark:hover:text-zinc-500 transition-all hover:text-indigo-700">
+        <button title="Pesquisar" className="text-zinc-500 dark:text-white dark:hover:text-zinc-500 transition-all hover:text-indigo-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
