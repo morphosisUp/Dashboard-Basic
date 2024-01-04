@@ -1,0 +1,22 @@
+@import "./tailwind.css";
+:root {
+  --fontInter: "Inter", sans-serif;
+  --fontPoppins: "Poppins", sans-serif;
+
+  font-family: var(--fontPoppins);
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+p{
+  font-family: var(--fontInter);
+}
+.container_grid{
+  max-height: 70rem;
+}
+.frame_show_more{
+  backdrop-filter: blur(2px);
+}
