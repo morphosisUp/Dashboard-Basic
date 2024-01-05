@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import OffCanvas from "./OffCanvas";
 
 const Navbar = () => {
   const [data, setData] = useState([]);
+  const [averageSalary, setAverageSalary] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,14 @@ const Navbar = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const salaries = data.map((user) => user.salario);
+    const totalSalaries = salaries.reduce((sum, salary) => sum + salary, 0);
+    const average = totalSalaries / salaries.length;
+
+    setAverageSalary(average);
+  }, [data]);
+
   function changeThemeSystem() {
     if (!document.documentElement.classList.contains("dark")) {
       document.documentElement.classList.add("dark");
@@ -28,10 +38,26 @@ const Navbar = () => {
       localStorage.theme = "light";
     }
   }
+
+  function showSettings() {
+    const offCanvas = document.querySelector(".offcanvas");
+    const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
+    
+    mask_show_offcanvas.classList.remove("hidden");
+    offCanvas.classList.remove("hide_offCanvas_card");
+    offCanvas.classList.add("show_offCanvas_card");
+    
+    document.body.style.overflow = "hidden";
+  }
+
   return (
-    <header className="navbar dark:border-b dark:border-zinc-800 dark:bg-zinc-950 shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full flex  items-center py-5 justify-between px-5">
-      <div className="logo_container flex items-center space-x-5">
-        <button className="text-zinc-500 dark:text-indigo-500 transition-all hover:text-indigo-500" title="Definições">
+    <header className="navbar dark:border-b dark:border-zinc-800 dark:bg-zinc-950 shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full grid grid-cols-3  items-center py-5 justify-between px-5">
+      <div className="icons_main flex items-center space-x-5">
+        <button
+          onClick={showSettings}
+          className="text-zinc-500 dark:text-indigo-500 transition-all hover:text-indigo-500"
+          title="Definições"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -52,7 +78,10 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <button title="Pesquisar" className="text-zinc-500 dark:text-white dark:hover:text-zinc-500 transition-all hover:text-indigo-700">
+        <button
+          title="Pesquisar"
+          className="text-zinc-500 dark:text-white retrato-tablet:inline hidden dark:hover:text-zinc-500 transition-all hover:text-indigo-700"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -70,7 +99,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className="settings_visual_container  justify-end items-center space-x-4">
+      <div className="logo_container flex justify-center items-center space-x-4">
         <a href="#" title="morphosis Logo">
           <img
             src="/img/logo.png"
@@ -81,48 +110,33 @@ const Navbar = () => {
       </div>
 
       <div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-end space-x-3">
           <button
             onClick={changeThemeSystem}
-            className="text-zinc-500 dark:hover:text-zinc-500 dark:text-white transition-all paisagem-tablet:inline hidden hover:text-indigo-700"
+            className="text-zinc-500 dark:hover:text-zinc-500 dark:text-white transition-all  hover:text-indigo-700"
             title="Tema do Sistema"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6 stroke-2"
+              fill="currentColor"
+              class="w-6 h-6"
             >
+              <path d="M12 .75a8.25 8.25 0 0 0-4.135 15.39c.686.398 1.115 1.008 1.134 1.623a.75.75 0 0 0 .577.706c.352.083.71.148 1.074.195.323.041.6-.218.6-.544v-4.661a6.714 6.714 0 0 1-.937-.171.75.75 0 1 1 .374-1.453 5.261 5.261 0 0 0 2.626 0 .75.75 0 1 1 .374 1.452 6.712 6.712 0 0 1-.937.172v4.66c0 .327.277.586.6.545.364-.047.722-.112 1.074-.195a.75.75 0 0 0 .577-.706c.02-.615.448-1.225 1.134-1.623A8.25 8.25 0 0 0 12 .75Z" />
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-              />
-            </svg>
-          </button>
-          <button
-            className="text-zinc-500 dark:hover:text-zinc-500 dark:text-white transition-all hover:text-indigo-700"
-            title="Menu"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6 stroke-2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                fill-rule="evenodd"
+                d="M9.013 19.9a.75.75 0 0 1 .877-.597 11.319 11.319 0 0 0 4.22 0 .75.75 0 1 1 .28 1.473 12.819 12.819 0 0 1-4.78 0 .75.75 0 0 1-.597-.876ZM9.754 22.344a.75.75 0 0 1 .824-.668 13.682 13.682 0 0 0 2.844 0 .75.75 0 1 1 .156 1.492 15.156 15.156 0 0 1-3.156 0 .75.75 0 0 1-.668-.824Z"
+                clip-rule="evenodd"
               />
             </svg>
           </button>
         </div>
       </div>
+      <OffCanvas
+        mediaSalarial={averageSalary.toFixed(2)}
+        usersNumber={data.length}
+        changeTheme={changeThemeSystem}
+      />
     </header>
   );
 };

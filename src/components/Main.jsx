@@ -20,12 +20,10 @@ const CardUser = React.memo(
             <p className="text-[14px] text-indigo-700 dark:text-zinc-400">
               {email}
             </p>
-
-            <div className="mt-4 inline-flex retrato-tablet:justify-start justify-center items-center dark:bg-transparent dark:text-zinc-400 space-x-1 px-3 py-1 bg-[#f5f5f5] text-indigo-600 rounded-full "></div>
           </div>
         </header>
 
-        <footer className="mt-5 flex justify-between w-full items-center ">
+        <footer className="mt-10 flex justify-between w-full items-center ">
           <div>
             <p className="text-[15px] dark:text-zinc-300 text-zinc-600 flex items-center font-medium">
               {salario}

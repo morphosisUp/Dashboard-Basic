@@ -11,6 +11,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+html,
+body {
+  scroll-behavior: smooth;
+  transition: background 0.2s ease-in-out;
+}
 p {
   font-family: var(--fontInter);
 }
@@ -36,6 +41,37 @@ p {
 .container_more_info_off {
   animation: hide_container_more_info 0.3s ease-in-out forwards;
 }
+
+.offcanvas {
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.show_offCanvas_card {
+  animation: show_offCanvas 0.5s ease-in-out forwards;
+}
+.hide_offCanvas_card {
+  animation: hide_offCanvas 0.5s ease-in-out forwards;
+}
+
+@keyframes show_offCanvas {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hide_offCanvas {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 
 @keyframes show_container_more_info {
   from {
