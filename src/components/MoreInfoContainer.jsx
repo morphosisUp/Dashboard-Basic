@@ -5,6 +5,8 @@ export default function MoreInfoContainer({ idUser }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+ 
+
   useEffect(() => {
     const FilterDataUser = async () => {
       try {
@@ -34,6 +36,7 @@ export default function MoreInfoContainer({ idUser }) {
   }
 
   function closeBoxInfo() {
+    
     const mask_show_user_info = document.querySelector(".mask_show_user_info");
     const container_more_info = document.querySelector(".container_more_info");
     container_more_info.classList.remove("container_more_info_on");

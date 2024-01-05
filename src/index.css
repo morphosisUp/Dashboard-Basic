@@ -11,8 +11,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+::-webkit-scrollbar {
+  width: 5px; /* largura da barra de rolagem */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #6d6c6c; /* cor do botão de arrastar */
+  border-radius: 6px; /* borda do botão de arrastar */
+}
+
 html,
 body {
+  scrollbar-color: #4a4a4a #f1f1f1;
+  scrollbar-width: thin;
   scroll-behavior: smooth;
   transition: background 0.2s ease-in-out;
 }
@@ -53,6 +63,34 @@ p {
 .hide_offCanvas_card {
   animation: hide_offCanvas 0.5s ease-in-out forwards;
 }
+.card_search {
+  transform: translateY(150%);
+  transition: transform 0.5s ease-in-out;
+}
+.card_search_on {
+  animation: show_card_search 0.5s ease-in-out forwards;
+}
+.card_search_off {
+  animation: hide_card_search 0.5s ease-in-out forwards;
+}
+
+@keyframes hide_card_search {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(150%);
+  }
+}
+
+@keyframes show_card_search {
+  from {
+    transform: translateY(150%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
 
 @keyframes show_offCanvas {
   from {
@@ -71,7 +109,6 @@ p {
     transform: translateX(-100%);
   }
 }
-
 
 @keyframes show_container_more_info {
   from {

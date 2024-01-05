@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ContainerLoad from "./ContainerLoad";
 import MoreInfoContainer from "./MoreInfoContainer";
+import ContainerSearch from "./ContainerSearch";
 
 const CardUser = React.memo(
   ({ id, first_name, last_name, image_profile, salario, email, showId }) => {
@@ -57,11 +58,11 @@ const CardUser = React.memo(
 const Main = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [idUser, setIdUser] = useState(null);
+  const [id, setId] = useState(null);
 
   function showId(id) {
-    setIdUser(id);
-
+    setId(id);
+    console.log(id);
     const mask_show_user_info = document.querySelector(".mask_show_user_info");
     const container_more_info = document.querySelector(".container_more_info");
 
@@ -146,7 +147,8 @@ const Main = () => {
           </svg>
         </button>
       </div>
-      <MoreInfoContainer idUser={idUser} />
+      <MoreInfoContainer idUser={id} />
+      {/* <ContainerSearch  idUser={idUser} /> */}
     </main>
   );
 };

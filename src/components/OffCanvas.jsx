@@ -1,17 +1,23 @@
-export default function OffCanvas({ mediaSalarial, usersNumber, changeTheme }) {
-
-  function closeOffVanvas(){
+export default function OffCanvas({
+  mediaSalarial,
+  usersNumber,
+  changeTheme,
+  showSearchCard,
+}) {
+  function closeOffCanvas() {
     const offCanvas = document.querySelector(".offcanvas");
     const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
+    const mask_search = document.querySelector(".mask_search")
 
     offCanvas.classList.remove("show_offCanvas_card");
     offCanvas.classList.add("hide_offCanvas_card");
     setTimeout(() => {
       mask_show_offcanvas.classList.add("hidden");
+      mask_search.classList.add("hidden");
       document.body.style.overflow = "auto";
     }, 600);
   }
-  
+
   return (
     <aside className="w-full hidden mask_show_offcanvas  h-screen z-30 fixed top-0 left-0 right-0 bg-[#f5f5f598] dark:bg-[rgba(0,0,0,0.7)]">
       <div className="offcanvas z-40  fixed top-0 left-0 h-screen dark:bg-zinc-950 shadow-lg bg-white retrato-tablet:w-[25rem] w-full p-6">
@@ -56,6 +62,28 @@ export default function OffCanvas({ mediaSalarial, usersNumber, changeTheme }) {
             </div>
             <div>
               <ul className="flex flex-col space-y-7">
+                <li>
+                  <button
+                    onClick={showSearchCard}
+                    className="flex text-[15px] items-center text-zinc-800 transition-all dark:hover:text-zinc-500 hover:text-zinc-900  dark:text-white"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 me-2 stroke-2 stroke-indigo-800"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                      />
+                    </svg>
+                    Pesquisar
+                  </button>
+                </li>{" "}
                 <li>
                   <a
                     href="#"
@@ -110,7 +138,7 @@ export default function OffCanvas({ mediaSalarial, usersNumber, changeTheme }) {
                 Alterar Tema
               </button>
               <button
-                onClick={closeOffVanvas}
+                onClick={closeOffCanvas}
                 className="block text-[14px] w-full transition-all dark:hover:ring-2 hover:bg-zinc-200 dark:hover:bg-indigo-900  ring-indigo-700 text-indigo-800 dark:text-white dark:shadow-lg dark:bg-indigo-800 bg-[#f5f5f5] py-2.5 rounded font-medium"
               >
                 Fechar

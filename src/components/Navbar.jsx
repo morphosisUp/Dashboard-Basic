@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import OffCanvas from "./OffCanvas";
+import ContainerSearch from "./ContainerSearch";
 
 const Navbar = () => {
   const [data, setData] = useState([]);
@@ -50,6 +51,19 @@ const Navbar = () => {
     document.body.style.overflow = "hidden";
   }
 
+  function showCardSearch(){
+    const mask_search = document.querySelector(".mask_search")
+    const card_search = document.querySelector(".card_search")
+    // const offCanvas = document.querySelector(".offcanvas");
+    const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
+
+    mask_show_offcanvas.classList.add("hidden")
+    mask_search.classList.remove("hidden")
+    card_search.classList.remove("card_search_off")
+    card_search.classList.add("card_search_on")
+    document.body.style.overflow = 'hidden'
+  }
+
   return (
     <header className="navbar dark:border-b dark:border-zinc-800 dark:bg-zinc-950 shadow-sm bg-[#fff] fixed top-0 left-0 right-0 z-10 w-full grid grid-cols-3  items-center py-5 justify-between px-5">
       <div className="icons_main flex items-center space-x-5">
@@ -79,6 +93,7 @@ const Navbar = () => {
           </svg>
         </button>
         <button
+        onClick={showCardSearch}
           title="Pesquisar"
           className="text-zinc-500 dark:text-white retrato-tablet:inline hidden dark:hover:text-zinc-500 transition-all hover:text-indigo-700"
         >
@@ -136,7 +151,9 @@ const Navbar = () => {
         mediaSalarial={averageSalary.toFixed(2)}
         usersNumber={data.length}
         changeTheme={changeThemeSystem}
+        showSearchCard={showCardSearch}
       />
+      <ContainerSearch />
     </header>
   );
 };
