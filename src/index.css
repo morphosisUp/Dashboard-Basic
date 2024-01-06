@@ -1,4 +1,5 @@
 @import "./tailwind.css";
+@import url("https://fonts.googleapis.com/css2? family= Inter:wght@100;200;300;400;500;600;700 & family= Poppins:wght@100;200; 300;400;500;600;700;800;900 & display=trocar");
 :root {
   --fontInter: "Inter", sans-serif;
   --fontPoppins: "Poppins", sans-serif;
@@ -12,11 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 ::-webkit-scrollbar {
-  width: 5px; /* largura da barra de rolagem */
+  width: 5px; 
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #6d6c6c; /* cor do botão de arrastar */
-  border-radius: 6px; /* borda do botão de arrastar */
+  background-color: #6d6c6c; 
+  border-radius: 6px; 
 }
 
 html,

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useRef } from "react";
 import ContainerLoad from "./ContainerLoad";
 import MoreInfoContainer from "./MoreInfoContainer";
 import { useData } from "./DataContext";
@@ -83,9 +82,6 @@ const Main = () => {
     const filteredData = await filterDataById(id);
     setIdSelected(filteredData);
   };
-  useEffect(() => {
-    // console.log(idSelected);
-  }, [idSelected]);
 
   return (
     <main className="mt-[60px] p-5 relative">
