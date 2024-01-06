@@ -7,7 +7,7 @@ export default function OffCanvas({
   function closeOffCanvas() {
     const offCanvas = document.querySelector(".offcanvas");
     const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
-    const mask_search = document.querySelector(".mask_search")
+    const mask_search = document.querySelector(".mask_search");
 
     offCanvas.classList.remove("show_offCanvas_card");
     offCanvas.classList.add("hide_offCanvas_card");
@@ -18,13 +18,11 @@ export default function OffCanvas({
     }, 600);
   }
 
-  
-
   return (
     <aside className="w-full hidden mask_show_offcanvas  h-screen z-30 fixed top-0 left-0 right-0 bg-[#f5f5f598] dark:bg-[rgba(0,0,0,0.7)]">
       <div className="offcanvas z-40  fixed top-0 left-0 h-screen dark:bg-zinc-950 shadow-lg bg-white retrato-tablet:w-[25rem] w-full p-6">
         <div className="w-full h-full relative">
-          <header className="py-4 border-b dark:border-zinc-900 border-zinc-100 ">
+          <header className="py-4 flex justify-between items-center border-b dark:border-zinc-900 border-zinc-100 ">
             <h5 className="dark:text-zinc-500 text-zinc-800 flex items-center  font-medium ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +45,22 @@ export default function OffCanvas({
               </svg>
               Definições
             </h5>
+            <button className="dark:text-white text-zinc-800"  onClick={closeOffCanvas}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+            </button>
           </header>
           <div className="grid grid-cols-1 mt-8 gap-8">
             <div className="flex items-center justify-between">
@@ -110,7 +124,9 @@ export default function OffCanvas({
                 </li>{" "}
                 <li>
                   <a
-                   href="https://wa.me/244938393388" target="_blank" rel="noopener noreferrer"
+                    href="https://wa.me/244938393388"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex text-[15px] items-center text-zinc-800 transition-all dark:hover:text-zinc-500 hover:text-zinc-900  dark:text-white"
                   >
                     <svg
@@ -132,19 +148,14 @@ export default function OffCanvas({
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center gap-2 w-full absolute bottom-0">
+            <div className="flex flex-col mt-8 justify-center gap-2 w-full">
               <button
                 onClick={changeTheme}
                 className="block text-[14px] w-full transition-all hover:ring-2 ring-indigo-700 dark:shadow-lg text-white bg-indigo-800 dark:bg-black py-2.5 rounded font-medium"
               >
                 Alterar Tema
               </button>
-              <button
-                onClick={closeOffCanvas}
-                className="block text-[14px] w-full transition-all dark:hover:ring-2 hover:bg-zinc-200 dark:hover:bg-indigo-900  ring-indigo-700 text-indigo-800 dark:text-white dark:shadow-lg dark:bg-indigo-800 bg-[#f5f5f5] py-2.5 rounded font-medium"
-              >
-                Fechar
-              </button>
+              
             </div>
           </div>
         </div>
