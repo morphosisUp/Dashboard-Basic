@@ -14,7 +14,7 @@ const CardUser = React.memo(
             alt="imagem_de_funcionario"
           />
           <div className="paisagem-tablet:text-start text-center paisagem-tablet:mt-0 mt-4">
-            <h3 className="text-zinc-900 dark:text-white">
+            <h3 className="text-zinc-700 font-medium dark:text-white">
               {first_name} {last_name}
             </h3>
             <p className="text-[14px] text-indigo-700 dark:text-zinc-400">
