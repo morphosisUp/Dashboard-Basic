@@ -71,7 +71,7 @@ export default function MoreInfoContainer({
                     <div className="flex retrato-tablet:flex-row flex-col space-x-4">
                       <img
                         src={user.image_profile}
-                        className="w-12 h-12 ring-2 retrato-tablet:m-0 m-auto ring-indigo-600 ring-offset-2 dark:ring-white rounded-full"
+                        className="w-16 h-16 ring-2 retrato-tablet:m-0 m-auto ring-indigo-600 ring-offset-2 dark:ring-white rounded-full"
                         alt="imagem_de_funcionario"
                       />
                       <div className="retrato-tablet:text-start text-center retrato-tablet:mt-0 mt-4">

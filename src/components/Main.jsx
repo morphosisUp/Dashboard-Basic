@@ -10,7 +10,7 @@ const CardUser = React.memo(
         <header className="w-full flex space-x-5 paisagem-tablet:flex-row flex-col paisagem-tablet:justify-start justify-center  ">
           <img
             src={image_profile}
-            className="w-12 h-12 rounded-full paisagem-tablet:m-0  m-auto ring-2 ring-offset-2 ring-indigo-400  dark:ring-zinc-700"
+            className="w-14 h-14 rounded-full paisagem-tablet:m-0  m-auto ring-2 ring-offset-2 ring-indigo-400  dark:ring-zinc-700"
             alt="imagem_de_funcionario"
           />
           <div className="paisagem-tablet:text-start text-center paisagem-tablet:mt-0 mt-4">
