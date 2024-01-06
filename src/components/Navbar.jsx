@@ -1,26 +1,12 @@
 import { useState, useEffect } from "react";
+import { useData } from "./DataContext";
 import axios from "axios";
 import OffCanvas from "./OffCanvas";
 import ContainerSearch from "./ContainerSearch";
 
 const Navbar = () => {
-  const [data, setData] = useState([]);
   const [averageSalary, setAverageSalary] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://gist.githubusercontent.com/mariosalembe23/eb6a0467f305c7a8b50feb022c719af7/raw/users.json".trim()
-        );
-        setData(response.data.users);
-      } catch (error) {
-        console.error(`Ocorreu um erro ao Trazer os Dados: ${error.message}`);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data } = useData();
 
   useEffect(() => {
     const salaries = data.map((user) => user.salario);
@@ -43,25 +29,24 @@ const Navbar = () => {
   function showSettings() {
     const offCanvas = document.querySelector(".offcanvas");
     const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
-    
+
     mask_show_offcanvas.classList.remove("hidden");
     offCanvas.classList.remove("hide_offCanvas_card");
     offCanvas.classList.add("show_offCanvas_card");
-    
+
     document.body.style.overflow = "hidden";
   }
 
-  function showCardSearch(){
-    const mask_search = document.querySelector(".mask_search")
-    const card_search = document.querySelector(".card_search")
-    // const offCanvas = document.querySelector(".offcanvas");
+  function showCardSearch() {
+    const mask_search = document.querySelector(".mask_search");
+    const card_search = document.querySelector(".card_search");
     const mask_show_offcanvas = document.querySelector(".mask_show_offcanvas");
 
-    mask_show_offcanvas.classList.add("hidden")
-    mask_search.classList.remove("hidden")
-    card_search.classList.remove("card_search_off")
-    card_search.classList.add("card_search_on")
-    document.body.style.overflow = 'hidden'
+    mask_show_offcanvas.classList.add("hidden");
+    mask_search.classList.remove("hidden");
+    card_search.classList.remove("card_search_off");
+    card_search.classList.add("card_search_on");
+    document.body.style.overflow = "hidden";
   }
 
   return (
@@ -93,7 +78,7 @@ const Navbar = () => {
           </svg>
         </button>
         <button
-        onClick={showCardSearch}
+          onClick={showCardSearch}
           title="Pesquisar"
           className="text-zinc-500 dark:text-white retrato-tablet:inline hidden dark:hover:text-zinc-500 transition-all hover:text-indigo-700"
         >
@@ -115,7 +100,7 @@ const Navbar = () => {
       </div>
 
       <div className="logo_container flex justify-center items-center space-x-4">
-        <a href="#" title="morphosis Logo">
+        <a href="https://www.instagram.com/morphosis_up" target="_blank" title="morphosis Logo">
           <img
             src="/img/logo.png"
             className="paisagem-tablet:w-9 paisagem-tablet:h-9 w-7 h-7 ring-2 rounded-full ring-indigo-600 ring-offset-2"

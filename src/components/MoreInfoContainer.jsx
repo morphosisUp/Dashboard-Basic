@@ -1,31 +1,11 @@
-import { useState, useEffect, useId } from "react";
-import axios from "axios";
+import { useData } from "./DataContext";
 import ContainerLoad from "./ContainerLoad";
-export default function MoreInfoContainer({ idUser }) {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
- 
-
-  useEffect(() => {
-    const FilterDataUser = async () => {
-      try {
-        const response = await axios.get(
-          "https://gist.githubusercontent.com/mariosalembe23/eb6a0467f305c7a8b50feb022c719af7/raw/users.json".trim()
-        );
-        if (idUser != null) {
-          const userData = response.data.users.filter((u) => u.id === idUser);
-          setData(userData);
-        }
-      } catch (error) {
-        console.error(`Ocorreu um erro ao trazer os dados: ${error.message}`);
-      }finally{
-        setLoading(false)
-      }
-    };
-
-    FilterDataUser();
-  }, [idUser]);
+export default function MoreInfoContainer({
+  user,
+  maskShowUserInfoRef,
+  containerMoreInfoRef,
+}) {
+  const { loading } = useData();
 
   function getYear(date) {
     const dataObj = new Date(date);
@@ -36,20 +16,26 @@ export default function MoreInfoContainer({ idUser }) {
   }
 
   function closeBoxInfo() {
-    
-    const mask_show_user_info = document.querySelector(".mask_show_user_info");
-    const container_more_info = document.querySelector(".container_more_info");
-    container_more_info.classList.remove("container_more_info_on");
-    container_more_info.classList.add("container_more_info_off");
+    if (maskShowUserInfoRef?.current && containerMoreInfoRef?.current) {
+      containerMoreInfoRef.current.classList.remove("container_more_info_on");
+      containerMoreInfoRef.current.classList.add("container_more_info_off");
+      document.body.style.overflow = "hidden";
+    }
     setTimeout(() => {
-      mask_show_user_info.classList.add("hidden");
+      maskShowUserInfoRef?.current.classList.add("hidden");
       document.body.style.overflow = "auto";
     }, 500);
   }
 
   return (
-    <aside className="w-full hidden mask_show_user_info  h-screen z-30 fixed top-0 left-0 right-0 bg-[#f5f5f598] dark:bg-[rgba(0,0,0,0.7)]">
-      <div className="container_more_info overflow-y-auto w-full shadow-lg rounded-t-3xl bg-white fixed bottom-0 retrato-tablet:h-[26rem] h-[90vh] dark:bg-gradient-to-b from-zinc-950 to-zinc-900 p-5">
+    <aside
+      ref={maskShowUserInfoRef}
+      className="w-full hidden mask_show_user_info  h-screen z-50 fixed top-0 left-0 right-0 bg-[#f5f5f598] dark:bg-[rgba(0,0,0,0.7)]"
+    >
+      <div
+        ref={containerMoreInfoRef}
+        className="container_more_info overflow-y-auto w-full shadow-lg rounded-t-3xl bg-white fixed bottom-0 retrato-tablet:h-[26rem] h-[90vh] dark:bg-gradient-to-b from-zinc-950 to-zinc-900 p-5"
+      >
         <div className="w-full h-full relative">
           {loading && <ContainerLoad />}
           <header className="flex items-center justify-between px-2">
@@ -78,8 +64,8 @@ export default function MoreInfoContainer({ idUser }) {
           </header>
 
           <div className="mt-6 px-5">
-            {idUser != null &&
-              data.map((user) => (
+            {user != null &&
+              user.map((user) => (
                 <div key={user.id} className="max-w-4xl w-full m-auto">
                   <header className="flex retrato-tablet:flex-row flex-col items-center justify-between">
                     <div className="flex retrato-tablet:flex-row flex-col space-x-4">

@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import Main from "./components/Main";
 import Navbar from "./components/Navbar";
-
+import { DataProvider } from "./components/DataContext";
 function App() {
   useEffect(() => {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (
       localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
@@ -16,10 +15,10 @@ function App() {
     }
   }, []);
   return (
-    <>
+    <DataProvider>
       <Navbar />
       <Main />
-    </>
+    </DataProvider>
   );
 }
 

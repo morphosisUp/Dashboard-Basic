@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ContainerLoad from "./ContainerLoad";
 import MoreInfoContainer from "./MoreInfoContainer";
-import ContainerSearch from "./ContainerSearch";
+import { useData } from "./DataContext";
 
 const CardUser = React.memo(
   ({ id, first_name, last_name, image_profile, salario, email, showId }) => {
@@ -56,45 +56,36 @@ const CardUser = React.memo(
 );
 
 const Main = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [id, setId] = useState(null);
-
-  function showId(id) {
-    setId(id);
-    console.log(id);
-    const mask_show_user_info = document.querySelector(".mask_show_user_info");
-    const container_more_info = document.querySelector(".container_more_info");
-
-    mask_show_user_info.classList.remove("hidden");
-    container_more_info.classList.remove("container_more_info_off");
-    container_more_info.classList.add("container_more_info_on");
-    document.body.style.overflow = "hidden";
-  }
+  const { data, fetchData, filterDataById, loading } = useData();
+  const [idSelected, setIdSelected] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://gist.githubusercontent.com/mariosalembe23/eb6a0467f305c7a8b50feb022c719af7/raw/users.json".trim()
-        );
-        setData(response.data.users);
-      } catch (error) {
-        console.error(`Ocorreu um erro ao Trazer os Dados: ${error.message}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [fetchData]);
 
-  function showMoreInfo() {
+  function showMoreCards() {
     const container_grid = document.querySelector(".container_grid");
     const frame_show_more = document.querySelector(".frame_show_more");
     container_grid.classList.add("max_height_none");
     frame_show_more.classList.add("hidden");
   }
+
+  const maskShowUserInfoRef = useRef(null);
+  const containerMoreInfoRef = useRef(null);
+
+  const handleFilterClick = async (id) => {
+    if (maskShowUserInfoRef.current && containerMoreInfoRef.current) {
+      maskShowUserInfoRef.current.classList.remove("hidden");
+      containerMoreInfoRef.current.classList.remove("container_more_info_off");
+      containerMoreInfoRef.current.classList.add("container_more_info_on");
+      document.body.style.overflow = "hidden";
+    }
+    const filteredData = await filterDataById(id);
+    setIdSelected(filteredData);
+  };
+  useEffect(() => {
+    // console.log(idSelected);
+  }, [idSelected]);
 
   return (
     <main className="mt-[60px] p-5 relative">
@@ -109,7 +100,7 @@ const Main = () => {
             image_profile={item.image_profile}
             salario={item.salario}
             email={item.email}
-            showId={showId}
+            showId={handleFilterClick}
           />
         ))}
         <div className="p-6 cursor-pointer rounded-lg dark:rounded-t-lg bg-indigo-700 hover:shadow-lg  dark:hover:to-zinc-950 dark:bg-gradient-to-b from-indigo-800 to-zinc-950 transition-all shadow-sm dark:shadow-none">
@@ -128,7 +119,8 @@ const Main = () => {
       </div>
       <div className="absolute left-0 flex items-center frame_show_more justify-center bottom-0 h-40 bg-gradient-to-b from-transparent dark:to-[rgba(17,16,16,0.86)] to-[rgba(226,220,220,0.99)] w-full">
         <button
-          onClick={showMoreInfo}
+          onClick={showMoreCards}
+          title="Mostrar mais"
           className="show_more_data_users  cursor-pointer bg-indigo-700 text-white w-12 h-12 ring-4 ring-indigo-300 ring-opacity-30 rounded-full flex items-center justify-center"
         >
           <svg
@@ -147,8 +139,9 @@ const Main = () => {
           </svg>
         </button>
       </div>
-      <MoreInfoContainer idUser={id} />
-      {/* <ContainerSearch  idUser={idUser} /> */}
+
+      <MoreInfoContainer user={idSelected} maskShowUserInfoRef={maskShowUserInfoRef} containerMoreInfoRef={containerMoreInfoRef} />
+      
     </main>
   );
 };

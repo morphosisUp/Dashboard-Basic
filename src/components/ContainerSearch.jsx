@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import MoreInfoContainer from "./MoreInfoContainer";
+import { useData } from "./DataContext";
 export default function ContainerSearch() {
+  const { filterDataById } = useData();
   const [data, setData] = useState([]);
-  const [idUserSelected, setidUserSelected] = useState(null);
+  const [idUserSelected, setidUserSelected] = useState([]);
   const [valueInput, setValueInput] = useState("");
 
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function ContainerSearch() {
   function closeSearchCard() {
     const mask_search = document.querySelector(".mask_search");
     const card_search = document.querySelector(".card_search");
-
+    setData([]);
     card_search.classList.remove("card_search_on");
     card_search.classList.add("card_search_off");
     setTimeout(() => {
@@ -52,16 +55,18 @@ export default function ContainerSearch() {
     }, 600);
   }
 
-  function showSelectedUser(id) {
-    setidUserSelected(id)
-    console.log(idUserSelected);
-    const mask_show_user_info = document.querySelector(".mask_show_user_info");
-    const container_more_info = document.querySelector(".container_more_info");
+  const maskShowUserInfoRef = useRef(null);
+  const containerMoreInfoRef = useRef(null);
 
-    mask_show_user_info.classList.remove("hidden");
-    container_more_info.classList.remove("container_more_info_off");
-    container_more_info.classList.add("container_more_info_on");
-    document.body.style.overflow = "hidden";
+  function OpenInfoCard(id) {
+    const filteredData = filterDataById(id);
+    setidUserSelected(filteredData);
+    if (maskShowUserInfoRef.current && containerMoreInfoRef.current) {
+      maskShowUserInfoRef.current.classList.remove("hidden");
+      containerMoreInfoRef.current.classList.remove("container_more_info_off");
+      containerMoreInfoRef.current.classList.add("container_more_info_on");
+      document.body.style.overflow = "hidden";
+    }
   }
 
   return (
@@ -105,7 +110,7 @@ export default function ContainerSearch() {
             </h6>
             <div className="grid grid-cols-1 gap-4 relative">
               {data.map((user) => (
-                <button key={user.id} onClick={() => showSelectedUser(user.id)}>
+                <button key={user.id} onClick={() => OpenInfoCard(user.id)}>
                   <div className="py-5 h-28  bg-gradient-to-b flex justify-between items-center dark:from-zinc-900 from-gray-200 to-transparent  dark:to-zinc-950 px-5 rounded-t-3xl">
                     <header className="flex w-full text-start space-x-4">
                       <img
@@ -127,7 +132,7 @@ export default function ContainerSearch() {
                     </header>
                     <div className="retrato-tablet:inline hidden">
                       <button
-                        onClick={() => showSelectedUser(user.id)}
+                        onClick={() => OpenInfoCard(user.id)}
                         className="text-white  text-[14px] px-6 py-2 rounded-full transition-all hover:bg-indigo-700 bg-indigo-800 font-medium"
                       >
                         Detalhes
@@ -140,7 +145,11 @@ export default function ContainerSearch() {
           </div>
         </div>
       </div>
-     
+      <MoreInfoContainer
+        user={idUserSelected}
+        maskShowUserInfoRef={maskShowUserInfoRef}
+        containerMoreInfoRef={containerMoreInfoRef}
+      />
     </aside>
   );
 }

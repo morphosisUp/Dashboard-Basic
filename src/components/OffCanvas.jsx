@@ -18,6 +18,8 @@ export default function OffCanvas({
     }, 600);
   }
 
+  
+
   return (
     <aside className="w-full hidden mask_show_offcanvas  h-screen z-30 fixed top-0 left-0 right-0 bg-[#f5f5f598] dark:bg-[rgba(0,0,0,0.7)]">
       <div className="offcanvas z-40  fixed top-0 left-0 h-screen dark:bg-zinc-950 shadow-lg bg-white retrato-tablet:w-[25rem] w-full p-6">
@@ -86,7 +88,7 @@ export default function OffCanvas({
                 </li>{" "}
                 <li>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/morphosis_up"
                     className="flex text-[15px] items-center text-zinc-800 transition-all dark:hover:text-zinc-500 hover:text-zinc-900  dark:text-white"
                   >
                     <svg
@@ -108,7 +110,7 @@ export default function OffCanvas({
                 </li>{" "}
                 <li>
                   <a
-                    href="#"
+                   href="https://wa.me/244938393388" target="_blank" rel="noopener noreferrer"
                     className="flex text-[15px] items-center text-zinc-800 transition-all dark:hover:text-zinc-500 hover:text-zinc-900  dark:text-white"
                   >
                     <svg
