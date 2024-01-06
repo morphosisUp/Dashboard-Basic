@@ -31,7 +31,7 @@ const CardUser = React.memo(
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="w-6 h-6 ms-2 fill-indigo-600"
+                class="w-6 h-6 ms-1 fill-indigo-600"
               >
                 <path
                   fill-rule="evenodd"
