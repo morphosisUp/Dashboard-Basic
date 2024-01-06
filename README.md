@@ -17,4 +17,4 @@ Este é um Projecto front-end que a Equipa da Morphosis Decidiu criar, em que cr
 
 - [Instagram](https://www.instagram.com/morphosis_up)
 - [Vercel Profile](https://vercel.com/mariosalembe23)
-- [URL LIVE](https://dashboard-beryl-phi.vercel.app/)
+- [URL LIVE](https://dashboard-basic-five.vercel.app/)
