@@ -7,7 +7,7 @@ import { useData } from "./DataContext";
 const CardUser = React.memo(
   ({ id, first_name, last_name, image_profile, salario, email, showId }) => {
     return (
-      <div className="retrato-tablet:py-5 py-7  px-5 cursor-pointer rounded-lg dark:rounded-t-lg bg-white hover:shadow-lg dark:hover:from-zinc-900 dark:hover:to-zinc-950 dark:bg-gradient-to-b from-zinc-900 to-zinc-950 transition-all shadow-sm dark:shadow-none">
+      <div className="retrato-tablet:py-5 py-7  px-5 cursor-pointer rounded-lg dark:rounded-t-lg bg-white hover:shadow-lg dark:hover:from-zinc-900 dark:hover:to-zinc-950 bg-gradient-to-b dark:from-zinc-900 from-white to-[#f5f5f5] dark:to-zinc-950 transition-all dark:shadow-none">
         <header className="w-full flex space-x-5 paisagem-tablet:flex-row flex-col paisagem-tablet:justify-start justify-center  ">
           <img
             src={image_profile}
@@ -140,8 +140,11 @@ const Main = () => {
         </button>
       </div>
 
-      <MoreInfoContainer user={idSelected} maskShowUserInfoRef={maskShowUserInfoRef} containerMoreInfoRef={containerMoreInfoRef} />
-      
+      <MoreInfoContainer
+        user={idSelected}
+        maskShowUserInfoRef={maskShowUserInfoRef}
+        containerMoreInfoRef={containerMoreInfoRef}
+      />
     </main>
   );
 };
